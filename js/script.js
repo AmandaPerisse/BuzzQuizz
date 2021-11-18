@@ -43,13 +43,23 @@ function openQuizz(resposta){
         </div>
         `;
         let specifiedQuizzQuestion = document.querySelectorAll(".OpenedQuizzQuestionOptions");
+        let arrayRandom = [];
         for(let j =0; j<resposta.data.questions[0].answers.length;j++){
-            specifiedQuizzQuestion[i].innerHTML += 
+            arrayRandom[j]= 
             `<button class = "OpenedQuizzQuestionOption">
                 <img src = "${resposta.data.questions[i].answers[j].image}">
                 <h3>${resposta.data.questions[i].answers[j].text}</h3>
             </button>
             `;
         }
+        arrayRandom.sort(comparador);
+        console.log(arrayRandom);
+        for(let j = 0; j<arrayRandom.length;j++){
+            specifiedQuizzQuestion[i].innerHTML += arrayRandom[j];
+        }
     }
+}
+
+function comparador() { 
+	return Math.random() - 0.5; 
 }
