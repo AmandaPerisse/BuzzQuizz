@@ -25,6 +25,11 @@ h3{
     font-size: 20px;
     font-weight: normal;
 }
+h4{
+    font-family: 'Roboto', sans-serif;
+    font-size: 39px;
+    color: white;
+}
 p{
     font-family: 'Roboto', sans-serif;
     font-size: 19px;
@@ -37,6 +42,9 @@ button{
 }
 body{
     background-color: #FAFAFA;
+}
+.escondido{
+    display: none !important;
 }
 
 /* início Header */
@@ -81,6 +89,28 @@ body{
     padding: 5px 20px;
 }
 
+    /* Index tem quizz feito */
+.indexHaveQuizzes{
+    margin-top: 100px;
+}
+.indexHaveQuizzesTitle{
+    display: flex;
+    align-items: center;
+}
+.indexHaveQuizzesTitle h3{
+    font-weight: bold;
+}
+.indexHaveQuizzesTitle button{
+    background-color: #EC362D;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+}
+
     /*Todos os quizzes */
 
 .indexAllQuizzes{
@@ -113,6 +143,20 @@ body{
     display: flex;
     align-items: center;
     text-align: initial;
+}
+
+    /* Quizz aberto */
+
+.OpenedQuizzHeader{
+    height: 230px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 /* Fim index */
