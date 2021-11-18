@@ -30,6 +30,11 @@ h4{
     font-size: 39px;
     color: white;
 }
+h5{
+    font-family: 'Roboto', sans-serif;
+    font-size: 23px;
+    color: white;
+}
 p{
     font-family: 'Roboto', sans-serif;
     font-size: 19px;
@@ -157,6 +162,41 @@ body{
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+.OpenedQuizzQuestion{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    margin-top: 50px;
+}
+.OpenedQuizzQuestionTitle{
+    height: 140px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+.OpenedQuizzQuestionOptions{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.OpenedQuizzQuestionOption{
+    width: 48%;
+    margin-top: 20px;
+}
+.OpenedQuizzQuestionOption img{
+    width: 100%;
+    height: 190px;
+}
+.OpenedQuizzQuestionOption h3{
+    font-weight: bold;
 }
 
 /* Fim index */

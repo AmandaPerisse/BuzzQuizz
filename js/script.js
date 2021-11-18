@@ -2,6 +2,7 @@ let allQuizzes = document.querySelector(".indexAllQuizzesList");
 let index = document.querySelector(".index");
 let specifiedQuizz = document.querySelector(".OpenedQuizz");
 
+
 let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
 promise.then(getQuizzes);
 
@@ -29,5 +30,26 @@ function openQuizz(resposta){
     <div style = "background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url(${resposta.data.image});" class = "OpenedQuizzHeader">
         <h4>${resposta.data.title}</h4>
     </div>
+    <div class = "OpenedQuizzQuestions"></div>
     `;
+    let specifiedQuizzQuestions = document.querySelector(".OpenedQuizzQuestions");
+    for(let i =0; i<resposta.data.questions.length;i++){
+        specifiedQuizzQuestions.innerHTML +=
+        `<div class = "container OpenedQuizzQuestion">
+            <div style = "background-color: ${resposta.data.questions[i].color}" class = "OpenedQuizzQuestionTitle">
+                <h5>${resposta.data.questions[i].title}</h5>
+            </div>
+            <div class = "OpenedQuizzQuestionOptions"></div>
+        </div>
+        `;
+        let specifiedQuizzQuestion = document.querySelectorAll(".OpenedQuizzQuestionOptions");
+        for(let j =0; j<resposta.data.questions[0].answers.length;j++){
+            specifiedQuizzQuestion[i].innerHTML += 
+            `<button class = "OpenedQuizzQuestionOption">
+                <img src = "${resposta.data.questions[i].answers[j].image}">
+                <h3>${resposta.data.questions[i].answers[j].text}</h3>
+            </button>
+            `;
+        }
+    }
 }
