@@ -122,20 +122,20 @@ function chooseAnswer(elemento, answer, whichQuestion) {
 
         // let header = document.querySelector(".OpenedQuizzHeader");
         // setTimeout(scroll, 2000, result);
-        specifiedQuizz.innerHTML += `
-        // <div class = "container buttons">
+        // specifiedQuizz.innerHTML += `
+        // // <div class = "container buttons">
 
-        // specifiedQuizz.innerHTML +=`;
-        <div div class="buttons" >
+        // // specifiedQuizz.innerHTML +=`;
+        // <div div class="buttons">
 
-            <button class="button1">
-                <h2 onclick="searchQuizz(${idQuizz});" style="color: white;">Reiniciar Quizz</h2>
-            </button>;
-            <button onclick="goHome();" class="button2">
-                <h2 style="color: #818181;">Voltar para home</h2>
-            </button >
-        </div>
-            ;
+        //     <button class="button1">
+        //         <h2 onclick="searchQuizz(${idQuizz});" style="color: white;">Reiniciar Quizz</h2>
+        //     </button>;
+        //     <button onclick="goHome();" class="button2">
+        //         <h2 style="color: #818181;">Voltar para home</h2>
+        //     </button >
+        // </div>
+
         setTimeout(scroll, 2000, result);
     }
 }
@@ -151,3 +151,12 @@ function scroll(elemento) {
 }
 
 // código da amanda termina aqui
+
+function criarQuizz(upQuizz) {
+    console.log('funcinando')
+    const indexNone = document.querySelector(".container");
+    indexNone.classList.add('escondido');
+
+    const createQuizz = document.querySelector(".create-quizz");
+    createQuizz.classList.remove('escondido');
+}
