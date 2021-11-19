@@ -238,6 +238,7 @@ body{
 }
 .openedQuizzResultContent p{
     font-weight: bold;
+    width: 48%;
 }
 .buttons{
     display: flex;
