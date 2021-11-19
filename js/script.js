@@ -3,6 +3,7 @@ let index = document.querySelector(".index");
 let specifiedQuizz = document.querySelector(".OpenedQuizz");
 let qtdAcertos = 0;
 let levels = [];
+let idQuizz = 0;
 
 
 let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
@@ -20,11 +21,13 @@ function getQuizzes(resposta) {
 }
 
 function searchQuizz(identificador) {
+    qtdAcertos = 0;
     let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/' + identificador);
     promise.then(openQuizz);
 }
 
 function openQuizz(resposta) {
+    idQuizz = resposta.data.id;
     index.classList.add("escondido");
     specifiedQuizz.innerHTML = "";
     specifiedQuizz.innerHTML += `
@@ -95,7 +98,7 @@ function chooseAnswer(elemento, answer, whichQuestion) {
         }
     }
     if(questions[whichQuestion+1] != null){
-        setTimeout(sroll, 2000, questions[whichQuestion+1]);
+        setTimeout(scroll, 2000, questions[whichQuestion+1]);
     }
     else{
         let result = document.querySelector(".OpenedQuizzResultContainer");
@@ -115,13 +118,25 @@ function chooseAnswer(elemento, answer, whichQuestion) {
                 break;
             }
         }
-        setTimeout(sroll, 2000, result);
+        let header = document.querySelector(".OpenedQuizzHeader");
+        setTimeout(scroll, 2000, result);
+        specifiedQuizz.innerHTML +=`
+        <div class = "container buttons">
+            <button class = "button1">
+                <h2 onclick = "searchQuizz(${idQuizz});" style = "color: white;">Reiniciar Quizz</h2>
+            </button>
+            <button class "button2">
+                <h2 style = "color: #818181;">Voltar para home</h2>
+            </button>
+        </div>
+        `;
     }
 }
 
-function sroll(elemento){
+function scroll(elemento){
     elemento.scrollIntoView();
 }
+//código da amanda termina aqui
 
 // Início da criação de um Quizz
 

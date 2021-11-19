@@ -239,5 +239,19 @@ body{
 .openedQuizzResultContent p{
     font-weight: bold;
 }
+.buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0px;
+}
+.button1{
+    background-color: #EC362D;
+    border-radius: 15px;
+    width: 260px;
+    padding: 10px 30px;
+    margin-bottom: 10px;
+}
 
 /* Fim index */
