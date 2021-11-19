@@ -1,62 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-	<head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>BuzzQuizz</title>
-        
-        <link rel="stylesheet" href="css/reset.css">
-        <link rel="stylesheet" href="css/style.css">
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuzzQuizz</title>
 
-	    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script defer type="text/javascript" src="js/script.js"></script>
-        
-    </head>
-	<body>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
 
-<!-- Cabeçalho do site -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
-        <!-- Cabeçalho do site - Amanda -->
-        <header>
-            <div class = "header">
-                <h1>BuzzQuizz</h1>
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer type="text/javascript" src="js/script.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Cabeçalho do site -->
+
+    <!-- Cabeçalho do site - Amanda -->
+    <header>
+        <div class="header">
+            <h1>BuzzQuizz</h1>
+        </div>
+    </header>
+
+    <!-- Conteúdo da página -->
+
+    <main>
+        <section class="container index">
+            <!-- Index sem Quizzes autorais - Amanda -->
+            <div class="indexNoQuizzes">
+                <h3>Você não criou nenhum quizz ainda :(</h3>
+                <button id="btn">
+                    <!-- onclick="criarQuizz(this)" -->
+                    <h2>Criar Quizz</h2>
+                </button>
             </div>
-        </header>
-
-<!-- Conteúdo da página -->
-
-        <main>
-            <section class = "container index">
-                <!-- Index sem Quizzes autorais - Amanda -->
-                <div class = "indexNoQuizzes">
-                    <h3>Você não criou nenhum quizz ainda :(</h3>
-                    <button><h2>Criar Quizz</h2></button>
+            <div class="escondido indexHaveQuizzes">
+                <div class="indexHaveQuizzesTitle">
+                    <h3>Seus Quizzes</h3>
+                    <button><img src="img/+.png"></button>
                 </div>
-                <div class = "escondido indexHaveQuizzes">
-                    <div class = "indexHaveQuizzesTitle">
-                        <h3>Seus Quizzes</h3>
-                        <button><img src = "img/+.png"></button>
-                    </div>
-                    <div class = "indexHaveAllQuizzes"></div>
-                </div>
-                <!-- Todos os quizzes - Amanda -->
-                <div class = "indexAllQuizzes">
-                    <h3>Todos os Quizzes</h3>
-                    <br>
-                    <div class = "indexAllQuizzesList"></div>
-                </div>
-            </section>
-            <section class = "OpenedQuizz">
-            </section>
-        </main>
+                <div class="indexHaveAllQuizzes"></div>
+            </div>
+            <!-- Todos os quizzes - Amanda -->
+            <div class="indexAllQuizzes">
+                <h3>Todos os Quizzes</h3>
+                <br>
+                <div class="indexAllQuizzesList"></div>
+            </div>
+        </section>
+        <section class="OpenedQuizz">
+        </section>
+        <!-- Criar quizzes - Kassia -->
+        <section class="createQuizz escondido">
+            <h3>Comece pelo começo</h3>
+            <form class="infoQuizz">
+                <input type="text" name="titulo" placeholder="" value="Título do seu quizz">
+                <input type="text" name="url" value="URL da imagem do seu quizz">
+                <input type="text" name="qtdPerg" value="Quanridade de perguntas do quizz">
+                <input type="text" name="qdtNiveis" value="Quantidade de níveis do quizz">
+            </form>
+        </section>
+    </main>
 
-<!-- Footer -->
+    <!-- Footer -->
 
-        <footer>
-        </footer>
-    </body>
+    <footer>
+    </footer>
+</body>
+
 </html>
