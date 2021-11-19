@@ -8,7 +8,6 @@ promise.then(getQuizzes);
 
 function getQuizzes(resposta){
     allQuizzes.innerHTML = "";
-    console.log(resposta.data);
     for(let i = 0; i < resposta.data.length; i++){
         allQuizzes.innerHTML += `
         <button onclick = "searchQuizz(${resposta.data[i].id});" style = "background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(${resposta.data[i].image});" class = "AllQuizzesQuizz">
@@ -44,16 +43,21 @@ function openQuizz(resposta){
         `;
         let specifiedQuizzQuestion = document.querySelectorAll(".OpenedQuizzQuestionOptions");
         let arrayRandom = [];
-        for(let j =0; j<resposta.data.questions[0].answers.length;j++){
+        let correctAnswer = "";
+        for(let a = 0; a<resposta.data.questions[i].answers.length; a++){
+            if(resposta.data.questions[i].answers[a].isCorrectAnswer){
+                correctAnswer = resposta.data.questions[i].answers[a].text;
+            }
+        }
+        for(let j =0; j<resposta.data.questions[i].answers.length;j++){
             arrayRandom[j]= 
-            `<button class = "OpenedQuizzQuestionOption">
+            `<button onclick = "chooseAnswer(this, ${correctAnswer}, ${i});" class = "OpenedQuizzQuestionOption">
                 <img src = "${resposta.data.questions[i].answers[j].image}">
                 <h3>${resposta.data.questions[i].answers[j].text}</h3>
             </button>
             `;
         }
         arrayRandom.sort(comparador);
-        console.log(arrayRandom);
         for(let j = 0; j<arrayRandom.length;j++){
             specifiedQuizzQuestion[i].innerHTML += arrayRandom[j];
         }
@@ -62,4 +66,25 @@ function openQuizz(resposta){
 
 function comparador() { 
 	return Math.random() - 0.5; 
+}
+
+function chooseAnswer(elemento, answer, whichQuestion){
+    console.log("oi");
+    let questions = document.querySelectorAll(".OpenedQuizzQuestion");
+    let question = questions[whichQuestion].children[1];
+    for (let i = 0; i < question.children.length; i++){
+        if(question.children[i].children[1].innerHTML == answer){
+            question.children[i].classList.add("certaResposta");
+            if(question.children[i] != elemento){
+                question.children[i].classList.add("esbranquicado");
+            } 
+        }
+        else{
+            question.children[i].classList.add("erradaResposta");
+            if(question.children[i] != elemento){
+                question.children[i].classList.add("esbranquicado");
+            } 
+        }
+              
+    } 
 }

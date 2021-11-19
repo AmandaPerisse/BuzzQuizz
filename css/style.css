@@ -51,6 +51,15 @@ body{
 .escondido{
     display: none !important;
 }
+.esbranquicado{
+    opacity: 0.3;
+}
+.certaResposta h3{
+    color: green !important;
+}
+.erradaResposta h3{
+    color: red !important;
+}
 
 /* início Header */
 
