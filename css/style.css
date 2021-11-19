@@ -207,5 +207,37 @@ body{
 .OpenedQuizzQuestionOption h3{
     font-weight: bold;
 }
+    /*Resultado*/
+.OpenedQuizzResultContainer{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    margin-top: 50px;
+}
+.OpenedQuizzResult{
+    height: 140px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}    
+.openedQuizzResultContent{
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin-top: 20px;
+}
+.openedQuizzResultContent img{
+    width: 48%;
+    height: 190px;
+    margin-right: 10px;
+}
+.openedQuizzResultContent p{
+    font-weight: bold;
+}
 
 /* Fim index */

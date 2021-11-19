@@ -1,6 +1,8 @@
 let allQuizzes = document.querySelector(".indexAllQuizzesList");
 let index = document.querySelector(".index");
 let specifiedQuizz = document.querySelector(".OpenedQuizz");
+let qtdAcertos = 0;
+let levels = [];
 
 
 let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
@@ -30,20 +32,22 @@ function openQuizz(resposta) {
         <h4>${resposta.data.title}</h4>
     </div>
     <div class = "OpenedQuizzQuestions"></div>
+    <div class = "container escondido OpenedQuizzResultContainer"></div>
     `;
     let specifiedQuizzQuestions = document.querySelector(".OpenedQuizzQuestions");
     for (let i = 0; i < resposta.data.questions.length; i++) {
         specifiedQuizzQuestions.innerHTML +=
             `<div class = "container OpenedQuizzQuestion">
-            <div style = "background-color: ${resposta.data.questions[i].color}" class = "OpenedQuizzQuestionTitle">
-                <h5>${resposta.data.questions[i].title}</h5>
+                <div style = "background-color: ${resposta.data.questions[i].color}" class = "OpenedQuizzQuestionTitle">
+                    <h5>${resposta.data.questions[i].title}</h5>
+                </div>
+                <div class = "OpenedQuizzQuestionOptions"></div>
             </div>
-            <div class = "OpenedQuizzQuestionOptions"></div>
-        </div>
         `;
         let specifiedQuizzQuestion = document.querySelectorAll(".OpenedQuizzQuestionOptions");
         let arrayRandom = [];
         let correctAnswer = "";
+        levels = resposta.data.levels;
         for (let a = 0; a < resposta.data.questions[i].answers.length; a++) {
             if (resposta.data.questions[i].answers[a].isCorrectAnswer) {
                 correctAnswer = resposta.data.questions[i].answers[a].text;
@@ -51,7 +55,7 @@ function openQuizz(resposta) {
         }
         for (let j = 0; j < resposta.data.questions[i].answers.length; j++) {
             arrayRandom[j] =
-                `<button onclick = "chooseAnswer(this, ${correctAnswer}, ${i});" class = "OpenedQuizzQuestionOption">
+            `<button onclick = "chooseAnswer(this, '${correctAnswer}', ${i});" class = "OpenedQuizzQuestionOption">
                 <img src = "${resposta.data.questions[i].answers[j].image}">
                 <h3>${resposta.data.questions[i].answers[j].text}</h3>
             </button>
@@ -69,29 +73,59 @@ function comparador() {
 }
 
 function chooseAnswer(elemento, answer, whichQuestion) {
-    console.log("oi");
     let questions = document.querySelectorAll(".OpenedQuizzQuestion");
     let question = questions[whichQuestion].children[1];
+    if (elemento.children[1].innerHTML == answer){
+        qtdAcertos += 1;
+    }
     for (let i = 0; i < question.children.length; i++) {
         if (question.children[i].children[1].innerHTML == answer) {
             question.children[i].classList.add("certaResposta");
             if (question.children[i] != elemento) {
                 question.children[i].classList.add("esbranquicado");
             }
+            question.children[i].disabled = true;
         }
         else {
             question.children[i].classList.add("erradaResposta");
             if (question.children[i] != elemento) {
                 question.children[i].classList.add("esbranquicado");
             }
+            question.children[i].disabled = true;
         }
-
     }
+    if(questions[whichQuestion+1] != null){
+        setTimeout(sroll, 2000, questions[whichQuestion+1]);
+    }
+    else{
+        let result = document.querySelector(".OpenedQuizzResultContainer");
+        result.classList.remove("escondido");
+        qtdAcertos = (100*qtdAcertos)/questions.length;
+        for(let i = levels.length-1; i>= 0; i--){
+            if (qtdAcertos >= levels[i].minValue){
+                result.innerHTML += `
+                <div style = "background-color: #EC362D;" class = "OpenedQuizzResult">
+                    <h5>${qtdAcertos.toFixed(0)}% de acerto: ${levels[i].title}</h5>
+                </div>
+                <div class = "openedQuizzResultContent">
+                    <img src = "${levels[i].image}">
+                    <p>${levels[i].text}</p>
+                </div>
+                `;
+                break;
+            }
+        }
+        setTimeout(sroll, 2000, result);
+    }
+}
+
+function sroll(elemento){
+    elemento.scrollIntoView();
 }
 
 // Início da criação de um Quizz
 
-const makeQuizz = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", {
+/*const makeQuizz = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", {
     title: "O quão Potterhead é você?",
     image: "https://s3-alpha-sig.figma.com/img/60f6/4bae/cb4c4e815fc36d9f0f0579a657241eba?Expires=1638144000&Signature=cqsR1gZIngLBQPZ6LeL~vWnXsiDVfmQfBKYm6yHFxTCpkJNI4l~uNmpM4KredvdqP4M4T8h2xvw-kEkW91z3Ii8L~jTr-AIxLemInFf6fpM1-9tG2vQjPhlIeSgyhGfLiR5p53jnvg~uRzAgjshXhSaSxCjbyCtFzBmvzLYS8Zq0GxXw2MKCq3xRg18DnPy~qpJTrPQnSwp-h1dEFiVC5vcriL42Rn4qCtaKpDlf8KPGTVZO8WmsDKlW-IzcZhbLaRpc3HacjA9EELnZR8nZzw22qHuROyoyhKmVGM1OU2OF9Nej~Y~p5eFFXWzcLQ0VjG-0dApwkzDBqnpchxoF8w__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
     questions: [
@@ -195,6 +229,6 @@ const makeQuizz = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/qu
         }
     ]
 }
-)
+)*/
 
 // Final da criação do Quizz
