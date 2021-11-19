@@ -27,6 +27,7 @@ function searchQuizz(identificador) {
 }
 
 function openQuizz(resposta) {
+    window.scrollTo(0, 0);
     idQuizz = resposta.data.id;
     index.classList.add("escondido");
     specifiedQuizz.innerHTML = "";
@@ -73,7 +74,7 @@ function openQuizz(resposta) {
 
 function comparador() {
     return Math.random() - 0.5;
-}
+};
 
 function chooseAnswer(elemento, answer, whichQuestion) {
     let questions = document.querySelectorAll(".OpenedQuizzQuestion");
@@ -118,22 +119,35 @@ function chooseAnswer(elemento, answer, whichQuestion) {
                 break;
             }
         }
-        let header = document.querySelector(".OpenedQuizzHeader");
-        setTimeout(scroll, 2000, result);
+
+        // let header = document.querySelector(".OpenedQuizzHeader");
+        // setTimeout(scroll, 2000, result);
         specifiedQuizz.innerHTML += `
-        <div class = "container buttons">
-            <button class = "button1">
-                <h2 onclick = "searchQuizz(${idQuizz});" style = "color: white;">Reiniciar Quizz</h2>
-            </button>
-            <button class "button2">
-                <h2 style = "color: #818181;">Voltar para home</h2>
-            </button>
+        // <div class = "container buttons">
+
+        // specifiedQuizz.innerHTML +=`;
+        <div div class="buttons" >
+
+            <button class="button1">
+                <h2 onclick="searchQuizz(${idQuizz});" style="color: white;">Reiniciar Quizz</h2>
+            </button>;
+            <button onclick="goHome();" class="button2">
+                <h2 style="color: #818181;">Voltar para home</h2>
+            </button >
         </div>
-        `;
+            ;
+        setTimeout(scroll, 2000, result);
     }
+}
+
+function goHome() {
+    window.scrollTo(0, 0);
+    index.classList.remove("escondido");
+    specifiedQuizz.innerHTML = "";
 }
 
 function scroll(elemento) {
     elemento.scrollIntoView();
 }
-//código da amanda termina aqui
+
+// código da amanda termina aqui
