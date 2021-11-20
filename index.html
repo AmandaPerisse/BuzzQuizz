@@ -36,7 +36,7 @@
             <!-- Index sem Quizzes autorais - Amanda -->
             <div class="indexNoQuizzes">
                 <h3>Você não criou nenhum quizz ainda :(</h3>
-                <button onclick="criarQuizz(this)">
+                <button onclick="startCreateQuizz(this)">
                     <h2>Criar Quizz</h2>
                 </button>
             </div>
@@ -58,13 +58,66 @@
         </section>
         <!-- Criar quizzes - Kassia -->
         <section class="create-quizz escondido">
-            <h3>Comece pelo começo</h3>
-            <form class="info-quizz">
-                <input type="text" name="titulo" placeholder="Título do seu quizz">
-                <input type="text" name="url" placeholder="URL da imagem do seu quizz">
-                <input type="text" name="qtdPerg" placeholder="Quanridade de perguntas do quizz">
-                <input type="text" name="qdtNiveis" placeholder="Quantidade de níveis do quizz">
-            </form>
+            <div class="page-1 page">
+                <h6>Comece pelo começo</h6>
+                <form class="info-quizz tamanho-page1">
+                    <input class="input-quizz" type="text" name="titulo" placeholder="Título do seu quizz">
+                    <input class="input-quizz" type="text" name="url" placeholder="URL da imagem do seu quizz">
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="input-quizz" type="text" name="qdtNiveis" placeholder="Quantidade de níveis do quizz">
+                </form>
+                <button class="btn" onclick="makeQuestions(this)">Prosseguir para criar perguntas</button>
+            </div>
+            <div class="page-2 page escondido">
+                <h6>Crie suas perguntas</h6>
+                <form class="info-quizz tamanho-page2">
+                    <h7>Pergunta 1</h7>
+                    <input class="input-quizz" type="text" name="titulo" placeholder="Título do seu quizz">
+                    <input class="input-quizz" type="text" name="url" placeholder="URL da imagem do seu quizz">
+                    <h7>Resposta correta</h7>
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <h7>Respostas Incorretas</h7>
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="input-quizz" type="text" name="qdtNiveis" placeholder="Quantidade de níveis do quizz">
+                </form>
+                <button class="btn" onclick="makeLevels(this)">Prosseguir para criar níveis</button>
+            </div>
+            <div class="page-3 page escondido">
+                <h6>Agora, decida os níveis</h6>
+                <form class="info-quizz tamanho-page3">
+                    <h7>Nível 1</h7>
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="input-quizz" type="text" name="qtdPerg"
+                        placeholder="Quantidade de perguntas do quizz">
+                </form>
+                <button class="btn" onclick="finishCreateQuizz(this)">Finalizar Quizz</button>
+            </div>
+            <div class="page-4 page escondido">
+                <h6>Seu quizz está pronto!</h6>
+                <img src="img/img1.png" alt="img-1">
+                <div class="btnEnd">
+                    <button class="btn" onclick="accessQuizz(this)">Acessar Quizz</button>
+                    <button class="btn-back" onclick="backHome(this)">Voltar para home</button>
+                </div>
+            </div>
         </section>
     </main>
 

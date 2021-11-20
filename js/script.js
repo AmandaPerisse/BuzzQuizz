@@ -152,11 +152,58 @@ function scroll(elemento) {
 
 // código da amanda termina aqui
 
-function criarQuizz(upQuizz) {
+// código da kassia começa aqui
+
+function startCreateQuizz(upQuizz) {
     console.log('funcinando')
     const indexNone = document.querySelector(".container");
     indexNone.classList.add('escondido');
 
     const createQuizz = document.querySelector(".create-quizz");
     createQuizz.classList.remove('escondido');
+}
+
+function makeQuestions(passPage1) {
+    console.log('funcinando');
+    const passPage = document.querySelector('.page-1');
+    passPage.classList.add('escondido');
+
+    const newPage = document.querySelector('.page-2');
+    newPage.classList.remove('escondido');
+}
+
+function makeLevels(passPage2) {
+    console.log('funcionando');
+    const passPage = document.querySelector('.page-2');
+    passPage.classList.add('escondido');
+
+    const newPage = document.querySelector('.page-3');
+    newPage.classList.remove('escondido');
+}
+
+function finishCreateQuizz(passPage3) {
+    console.log('funcionando');
+    const passPage = document.querySelector('.page-3');
+    passPage.classList.add('escondido');
+
+    const newPage = document.querySelector('.page-4');
+    newPage.classList.remove('escondido');
+}
+
+function accessQuizz(AccessQuizz) {
+    console.log('funcionando');
+    const passPage = document.querySelector('.page-4');
+    passPage.classList.add('escondido');
+
+    const newPage = document.querySelector('');
+    newPage.classList.remove('escondido');
+}
+
+function backHome(backHome) {
+    console.log('funcionando');
+    const passPage = document.querySelector('.page-4');
+    passPage.classList.add('escondido');
+
+    const newPage = document.querySelector('.container');
+    newPage.classList.remove('escondido');
 }

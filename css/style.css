@@ -256,3 +256,110 @@ body{
 }
 
 /* Fim index */
+
+/* Início da criação de Quizz */
+
+.create-quizz{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+
+.page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 27px;
+}
+
+.info-quizz{
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    align-items: center;
+}
+
+.tamanho-page1{
+    width: 600px;
+    height: 256px;
+    gap: 9px;
+    padding: 20px;
+}
+
+.tamanho-page2{
+    width: 600px;
+    height: 825px;
+    gap: 14px;
+    padding: 14px 20px 0px 20px;
+}
+
+.tamanho-page3{
+    width: 600px;
+    height: 316px;
+    gap: 14px;
+    padding: 14px 20px 0px 20px;
+}
+
+.input-quizz[type="text"]{
+    font-size: 19px;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    color: #BABABA;
+    font-weight: 400;
+    border-color: #D1D1D1;
+    width: 564px;
+    height: 46px;
+}
+
+.btn{
+    background-color: #EC362D;
+    cursor:pointer;
+    width: 368.86px;
+    height: 54px;
+    border-radius: 15px;
+    font-family: 'Roboto', sans-serif;
+    color: #FFF5F4;
+    font-weight: 400;
+    font-size: 21px;
+}
+
+.btn-back{
+    background-color: transparent;
+    cursor: pointer;
+    width: 219.64px;
+    height: 44px;
+    font-weight: 400;
+    font-size: 21px;
+    font-family: 'Roboto', sans-serif;
+    color: #818181;    
+    border: none;
+}
+
+.btnEnd{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+}
+
+h6{
+    margin-top: 70px;
+    font-size: 23px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+h7{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 14px;
+}
+
+/* Está na forma estática (ilustração), será ocupado pelo quizz do servidor */
+.page-4 img{
+    width: 500px;
+    height: 266px;
+}
