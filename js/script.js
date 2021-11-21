@@ -154,8 +154,7 @@ function scroll(elemento) {
 
 // código da kassia começa aqui
 
-function startCreateQuizz(upQuizz) {
-    console.log('funcinando')
+function startCreateQuizz() {
     const indexNone = document.querySelector(".container");
     indexNone.classList.add('escondido');
 
@@ -163,13 +162,35 @@ function startCreateQuizz(upQuizz) {
     createQuizz.classList.remove('escondido');
 }
 
-function makeQuestions(passPage1) {
-    console.log('funcinando');
-    const passPage = document.querySelector('.page-1');
-    passPage.classList.add('escondido');
+function isValidUrl(string) {
+    try {
+        new URL(string);
+    } catch (_) {
+        return false;
+    }
+    return true;
+}
 
-    const newPage = document.querySelector('.page-2');
-    newPage.classList.remove('escondido');
+function makeQuestions() {
+    const title = document.querySelector('input[name=titulo]').value;
+    const url = document.querySelector('input[name=url]').value;
+    const qtdPerg = document.querySelector('input[name=qtdPerg]').value;
+    const qtdNiveis = document.querySelector('input[name=qdtNiveis]').value;
+
+    const validateTitle = title.length >= 20 && title.length <= 65;
+    const validateUrl = isValidUrl(url);
+    const validateQtdPerg = !isNaN(qtdPerg) && parseInt(qtdPerg) >= 3;
+    const validateQtdNiveis = !isNaN(qtdNiveis) && parseInt(qtdNiveis) >= 2;
+
+    if (validateTitle && validateUrl && validateQtdPerg && validateQtdNiveis) {
+        const passPage = document.querySelector('.page-1');
+        passPage.classList.add('escondido');
+
+        const newPage = document.querySelector('.page-2');
+        newPage.classList.remove('escondido');
+    } else {
+        alert('Ops, algo deu errado! Preencha os dados novamente ;)');
+    }
 }
 
 function makeLevels(passPage2) {
@@ -195,6 +216,7 @@ function accessQuizz(AccessQuizz) {
     const passPage = document.querySelector('.page-4');
     passPage.classList.add('escondido');
 
+    // colocar a classe da página do quizz criado
     const newPage = document.querySelector('');
     newPage.classList.remove('escondido');
 }
@@ -207,3 +229,13 @@ function backHome(backHome) {
     const newPage = document.querySelector('.container');
     newPage.classList.remove('escondido');
 }
+
+// function armazenarInfosQuizz(quizzInfos) {
+//     let infosQuizz = document.querySelector('.');
+//     infosQuizz.innerHTML = quizzInfos.data
+
+//     // montar a captação das informações no lugar certo, colocando em ordem e gerando a quantidade certa
+// }
+
+// let inputQuizz = new Object();
+// inputQuizz.
