@@ -345,10 +345,10 @@ function finishCreateQuizz(passPage3) {
         })
     }
 
-    if (!listPercent.includes("0")) {
-        alert("Pelo menos uma porcentagem de acerto deve ser 0%")
-        validate = false;
-    }
+    // if (!listPercent.includes("0")) {
+    //     alert("Pelo menos uma porcentagem de acerto deve ser 0%")
+    //     validate = false;
+    // }
 
     if (validate) {
         payload = { ...payload, levels: listLevels };
@@ -362,21 +362,13 @@ function finishCreateQuizz(passPage3) {
 }
 
 function accessQuizz(AccessQuizz) {
-    const title = document.querySelector('input[name=titulo]').value;
-    const url = document.querySelector('input[name=url]').value;
-    const qtdPerg = document.querySelector('input[name=qtdPerg]').value;
-    const qtdNiveis = document.querySelector('input[name=qdtNiveis]').value;
+    const passPage = document.querySelector('.page-4');
+    passPage.classList.add('escondido');
 
-    // if()
-    {
-        console.log('funcionando');
-        const passPage = document.querySelector('.page-4');
-        passPage.classList.add('escondido');
+    // colocar a classe da página do quizz criado
+    const newPage = document.querySelector('');
+    newPage.classList.remove('escondido');
 
-        // colocar a classe da página do quizz criado
-        const newPage = document.querySelector('');
-        newPage.classList.remove('escondido');
-    }
 }
 
 function backHome(backHome) {
@@ -391,5 +383,3 @@ function backHome(backHome) {
 //     // montar a captação das informações no lugar certo, colocando em ordem e gerando a quantidade certa
 // }
 
-// let inputQuizz = new Object();
-// inputQuizz.
