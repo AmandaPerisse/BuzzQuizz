@@ -4,7 +4,8 @@ let specifiedQuizz = document.querySelector(".OpenedQuizz");
 let qtdAcertos = 0;
 let levels = [];
 let idQuizz = 0;
-
+let payload = {};
+let qtdPerg;
 
 let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
 promise.then(getQuizzes);
@@ -174,7 +175,7 @@ function isValidUrl(string) {
 function makeQuestions() {
     const title = document.querySelector('input[name=titulo]').value;
     const url = document.querySelector('input[name=url]').value;
-    const qtdPerg = document.querySelector('input[name=qtdPerg]').value;
+    qtdPerg = document.querySelector('input[name=qtdPerg]').value;
     const qtdNiveis = document.querySelector('input[name=qdtNiveis]').value;
 
     const validateTitle = title.length >= 20 && title.length <= 65;
@@ -182,43 +183,153 @@ function makeQuestions() {
     const validateQtdPerg = !isNaN(qtdPerg) && parseInt(qtdPerg) >= 3;
     const validateQtdNiveis = !isNaN(qtdNiveis) && parseInt(qtdNiveis) >= 2;
 
-    if (validateTitle && validateUrl && validateQtdPerg && validateQtdNiveis) {
-        const passPage = document.querySelector('.page-1');
-        passPage.classList.add('escondido');
+    // if (validateTitle && validateUrl && validateQtdPerg && validateQtdNiveis) {
+    const passPage = document.querySelector('.page-1');
+    passPage.classList.add('escondido');
 
-        const newPage = document.querySelector('.page-2');
-        newPage.classList.remove('escondido');
-    } else {
-        alert('Ops, algo deu errado! Preencha os dados novamente ;)');
+    const newPage = document.querySelector('.page-2');
+    newPage.classList.remove('escondido');
+    // } else {
+    //     alert('Ops, algo deu errado! Preencha os dados novamente ;)');
+    // }
+
+    payload = { title: title, url: url }
+
+    let questions = document.querySelector('.page-2 .info-quizz')
+    for (let i = 0; i < parseInt(qtdPerg); i++) {
+        questions.innerHTML += `
+            <h7>Pergunta ${i + 1}</h7>
+            <input class="input-quizz" type="text" name="title-quest${i + 1}" placeholder="Texto da pergunta">
+            <input class="input-quizz" type="text" name="color-quest${i + 1}" placeholder="Cor de fundo da pergunta">
+            <h7>Resposta correta</h7>
+            <input class="input-quizz" type="text" name="correctAnswers-quest${i + 1}" placeholder="Resposta correta">
+            <input class="input-quizz" type="text" name="urlAnswers-quest${i + 1}" placeholder="URL da imagem">
+            <h7>Respostas Incorretas</h7>
+            <input class="input-quizz" type="text" name="incorrectAnswers1-quest${i + 1}" placeholder="Resposta incorreta 1">
+            <input class="input-quizz" type="text" name="urlAnswers1-quest${i + 1}" placeholder="URL da imagem 1">
+            <input class="input-quizz" type="text" name="incorrectAnswers2-quest${i + 1}" placeholder="Resposta incorreta 2">
+            <input class="input-quizz" type="text" name="urlAnswers2-quest${i + 1}" placeholder="URL da imagem 2">
+            <input class="input-quizz" type="text" name="incorrectAnswers3-quest${i + 1}" placeholder="Pergunta incorreta 3">
+            <input class="input-quizz" type="text" name="urlAnswers3-quest${i + 1}" placeholder="URL da imagem 3">
+        `
     }
 }
 
-function makeLevels(passPage2) {
-    console.log('funcionando');
-    const passPage = document.querySelector('.page-2');
-    passPage.classList.add('escondido');
+function isHexColor(hex) {
+    return typeof hex === 'string'
+        && hex.length === 6
+        && !isNaN(Number('0x' + hex))
+}
 
-    const newPage = document.querySelector('.page-3');
-    newPage.classList.remove('escondido');
+function makeLevels(passPage2) {
+    let validate = true;
+    let listQuestions = [];
+
+    for (let i = 0; i < parseInt(qtdPerg); i++) {
+        const title = document.querySelector(`input[name=title-quest${i + 1}]`).value;
+        const colorQuest = document.querySelector(`input[name=color-quest${i + 1}]`).value;
+        const correctAnswers = document.querySelector(`input[name=correctAnswers-quest${i + 1}]`).value;
+        const urlAnswers = document.querySelector(`input[name=urlAnswers-quest${i + 1}]`).value;
+        const incorrectAnswers1 = document.querySelector(`input[name=incorrectAnswers1-quest${i + 1}]`).value;
+        const urlAnswers1 = document.querySelector(`input[name=urlAnswers1-quest${i + 1}]`).value;
+        const incorrectAnswers2 = document.querySelector(`input[name=incorrectAnswers2-quest${i + 1}]`).value;
+        const urlAnswers2 = document.querySelector(`input[name=urlAnswers2-quest${i + 1}]`).value;
+        const incorrectAnswers3 = document.querySelector(`input[name=incorrectAnswers3-quest${i + 1}]`).value;
+        const urlAnswers3 = document.querySelector(`input[name=urlAnswers3-quest${i + 1}]`).value;
+
+        const validateTitle = title.length >= 20;
+        const validateColor = isHexColor(colorQuest);
+        const validateAnswers = correctAnswers != undefined && incorrectAnswers1 != undefined || incorrectAnswers2 != undefined || incorrectAnswers3 != undefined;
+        const validateUrl = isValidUrl(urlAnswers) && isValidUrl(urlAnswers1) && isValidUrl(urlAnswers2) && isValidUrl(urlAnswers3);
+
+        // if (!validateTitle && !validateColor && !validateAnswers && !validateUrl) {
+        //     alert('Ops, algo deu errado! Preencha os dados novamente ;)');
+        //     validate = false;
+        //     break;
+        // }
+
+        let objQuestion = {
+            title: title,
+            color: colorQuest,
+            answers: [{
+                text: correctAnswers,
+                image: urlAnswers,
+                isCorrectAnswer: true
+            }]
+        }
+
+        if (incorrectAnswers1 != undefined) {
+            objQuestion.answers.push({
+                text: incorrectAnswers1,
+                image: urlAnswers1,
+                isCorrectAnswer: false
+            })
+        }
+        if (incorrectAnswers2 != undefined) {
+            objQuestion.answers.push({
+                text: incorrectAnswers2,
+                image: urlAnswers2,
+                isCorrectAnswer: false
+            })
+        }
+        if (incorrectAnswers3 != undefined) {
+            objQuestion.answers.push({
+                text: incorrectAnswers3,
+                image: urlAnswers3,
+                isCorrectAnswer: false
+            })
+        }
+
+        listQuestions.push(objQuestion);
+
+    }
+
+    if (validate) {
+        payload = { ...payload, questions: listQuestions };
+        console.log("🚀 ~ file: script.js ~ line 290 ~ makeLevels ~ payload", payload)
+
+        console.log('funcionando');
+        const passPage = document.querySelector('.page-2');
+        passPage.classList.add('escondido');
+
+        const newPage = document.querySelector('.page-3');
+        newPage.classList.remove('escondido');
+    }
 }
 
 function finishCreateQuizz(passPage3) {
-    console.log('funcionando');
-    const passPage = document.querySelector('.page-3');
-    passPage.classList.add('escondido');
+    const title = document.querySelector('input[name=titulo]').value;
+    const url = document.querySelector('input[name=url]').value;
+    const qtdPerg = document.querySelector('input[name=qtdPerg]').value;
+    const qtdNiveis = document.querySelector('input[name=qdtNiveis]').value;
 
-    const newPage = document.querySelector('.page-4');
-    newPage.classList.remove('escondido');
+    // if()
+    {
+        console.log('funcionando');
+        const passPage = document.querySelector('.page-3');
+        passPage.classList.add('escondido');
+
+        const newPage = document.querySelector('.page-4');
+        newPage.classList.remove('escondido');
+    }
 }
 
 function accessQuizz(AccessQuizz) {
-    console.log('funcionando');
-    const passPage = document.querySelector('.page-4');
-    passPage.classList.add('escondido');
+    const title = document.querySelector('input[name=titulo]').value;
+    const url = document.querySelector('input[name=url]').value;
+    const qtdPerg = document.querySelector('input[name=qtdPerg]').value;
+    const qtdNiveis = document.querySelector('input[name=qdtNiveis]').value;
 
-    // colocar a classe da página do quizz criado
-    const newPage = document.querySelector('');
-    newPage.classList.remove('escondido');
+    // if()
+    {
+        console.log('funcionando');
+        const passPage = document.querySelector('.page-4');
+        passPage.classList.add('escondido');
+
+        // colocar a classe da página do quizz criado
+        const newPage = document.querySelector('');
+        newPage.classList.remove('escondido');
+    }
 }
 
 function backHome(backHome) {
