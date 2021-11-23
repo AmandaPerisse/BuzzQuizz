@@ -181,15 +181,15 @@ function makeQuestions() {
     const validateQtdPerg = !isNaN(qtdPerg) && parseInt(qtdPerg) >= 3;
     const validateQtdNiveis = !isNaN(qtdNiveis) && parseInt(qtdNiveis) >= 2;
 
-    if (validateTitle && validateUrl && validateQtdPerg && validateQtdNiveis) {
-        const passPage = document.querySelector('.page-1');
-        passPage.classList.add('escondido');
+    // if (validateTitle && validateUrl && validateQtdPerg && validateQtdNiveis) {
+    const passPage = document.querySelector('.page-1');
+    passPage.classList.add('escondido');
 
-        const newPage = document.querySelector('.page-2');
-        newPage.classList.remove('escondido');
-    } else {
-        alert('Ops, algo deu errado! Preencha os dados novamente ;)');
-    }
+    const newPage = document.querySelector('.page-2');
+    newPage.classList.remove('escondido');
+    // } else {
+    //     alert('Ops, algo deu errado! Preencha os dados novamente ;)');
+    // }
 
     payload = { ...payload, title: title, image: url }
 
@@ -251,11 +251,11 @@ function makeLevels(passPage2) {
         const validateAnswers = correctAnswers != undefined && incorrectAnswers1 != undefined || incorrectAnswers2 != undefined || incorrectAnswers3 != undefined;
         const validateUrl = isValidUrl(urlAnswers) && isValidUrl(urlAnswers1) && isValidUrl(urlAnswers2) && isValidUrl(urlAnswers3);
 
-        if (!validateTitle || !validateColor || !validateAnswers || !validateUrl) {
-            alert('Ops, algo deu errado! Preencha os dados novamente ;)');
-            validate = false;
-            break;
-        }
+        // if (!validateTitle || !validateColor || !validateAnswers || !validateUrl) {
+        //     alert('Ops, algo deu errado! Preencha os dados novamente ;)');
+        //     validate = false;
+        //     break;
+        // }
 
         let objQuestion = {
             title: title,
@@ -310,6 +310,7 @@ async function finishCreateQuizz(passPage3) {
     let listLevels = [];
     let currentQuizzId;
     let currentQuizzImage;
+    let listQuizzId = [];
 
     for (let i = 0; i < parseInt(qtdNiveis); i++) {
         const title = document.querySelector(`input[name=title-level${i + 1}]`).value;
@@ -322,11 +323,11 @@ async function finishCreateQuizz(passPage3) {
         const validateUrl = isValidUrl(url);
         const validateDescrition = descrition.length >= 30;
 
-        if (!validateTitle || !validatePercent || !validateUrl || !validateDescrition) {
-            alert('Ops, algo deu errado! Preencha os dados novamente ;)');
-            validate = false;
-            break;
-        }
+        // if (!validateTitle || !validatePercent || !validateUrl || !validateDescrition) {
+        //     alert('Ops, algo deu errado! Preencha os dados novamente ;)');
+        //     validate = false;
+        //     break;
+        // }
 
         listPercent.push(percent);
 
@@ -352,11 +353,24 @@ async function finishCreateQuizz(passPage3) {
         newPage.classList.remove('escondido');
     }
 
-    await axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", payload)
+    await axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", objetao)
         .then(
             function getId(response) {
                 currentQuizzId = response.data.id;
                 currentQuizzImage = response.data.image;
+
+                const quizzId = localStorage.getItem("quizzId");
+                const quizz = JSON.parse(quizzId);
+
+                if (quizz) {
+                    listQuizzId = [...quizz]
+                }
+                listQuizzId.push(currentQuizzId);
+
+                const dadosSerializados = JSON.stringify(listQuizzId);
+                localStorage.setItem("quizzId", dadosSerializados);
+
+                // storeQuizz()
             }
         )
 
@@ -376,7 +390,6 @@ function accessQuizz(id) {
     passPage.classList.add('escondido');
 
     searchQuizz(id);
-
 }
 
 function backHome(backHome) {
@@ -384,10 +397,57 @@ function backHome(backHome) {
     document.location.reload(true)
 }
 
-// function armazenarInfosQuizz(quizzInfos) {
-//     let infosQuizz = document.querySelector('.');
-//     infosQuizz.innerHTML = quizzInfos.data
-
-//     // montar a captação das informações no lugar certo, colocando em ordem e gerando a quantidade certa
+// function storeQuizz(quizzInfos) {    
+//         const listQuizz = localStorage.getItem("quizz");
+//         const quizz = JSON.parse(dadosSerializados);
 // }
 
+let objetao = {
+    title: "titulo do quizz kkkkkkkkkk",
+    image: "https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg",
+    questions: [
+        {
+            color: "#FFF5F4",
+            title: "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+            answers: [
+                { text: 'lllllllllllllllllllllllljjjjjjjjjjjjjjjjjjjjjjjjj', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: true }
+                , { text: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: false }
+                , { text: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: false }
+                , { text: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: false }
+            ]
+        },
+        {
+            color: "#818181",
+            title: "kkkkkkkkkkkkkkkkkkkkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
+            answers: [
+                { text: 'aaaaaaaaaaaaaaaaaaajjjjjjjjjjj', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: true }
+                , { text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: false }
+                , { text: 'gggggggggggggggggggggggggggggg', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: false }
+                , { text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: false }
+            ]
+        },
+        {
+            color: "#818181",
+            title: "aaaaaaaaaaaaaaaaaaaaaakkkkkkkkkkkkk",
+            answers: [
+                { text: 'aakkkkkkkkkkkkkkkkkkkkkkkkkkk', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: true }
+                , { text: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: false }
+                , { text: 'ggkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: false }
+                , { text: 'ggkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk', image: 'https://static-cse.canva.com/blob/183499/IMAGE-1.jpg', isCorrectAnswer: false }
+            ]
+        }
+    ],
+    levels:
+        [{
+            image: "https://static-cse.canva.com/blob/183499/IMAGE-1.jpg",
+            minValue: 0,
+            text: "ffffffffdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            title: "ffffffffdddddddddddddddddddddddd"
+        },
+        {
+            image: "https://static-cse.canva.com/blob/183499/IMAGE-1.jpg",
+            minValue: 5,
+            text: "ffffffffdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            title: "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
+        }]
+}
