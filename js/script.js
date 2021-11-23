@@ -121,23 +121,20 @@ function chooseAnswer(elemento, answer, whichQuestion) {
                 break;
             }
         }
-
-        // let header = document.querySelector(".OpenedQuizzHeader");
-        // setTimeout(scroll, 2000, result);
-        // specifiedQuizz.innerHTML += `
-        // // <div class = "container buttons">
-
-        // // specifiedQuizz.innerHTML +=`;
-        // <div div class="buttons">
-
-        //     <button class="button1">
-        //         <h2 onclick="searchQuizz(${idQuizz});" style="color: white;">Reiniciar Quizz</h2>
-        //     </button>;
-        //     <button onclick="goHome();" class="button2">
-        //         <h2 style="color: #818181;">Voltar para home</h2>
-        //     </button >
-        // </div>
-
+        setTimeout(scroll, 2000, result);
+        let header = document.querySelector(".OpenedQuizzHeader");
+        specifiedQuizz.innerHTML += `
+        <div class = "container buttons">
+            <div div class="buttons">
+                <button class="button1">
+                    <h2 onclick="searchQuizz(${idQuizz});" style="color: white;">Reiniciar Quizz</h2>
+                </button>
+                <button onclick="goHome();" class="button2">
+                    <h2 style="color: #818181;">Voltar para home</h2>
+                </button>
+            </div>
+        </div> 
+        `;
         setTimeout(scroll, 2000, result);
     }
 }

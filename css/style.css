@@ -245,7 +245,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 50px 0px;
+    margin: 50px auto;
 }
 .button1{
     background-color: #EC362D;
@@ -362,4 +362,13 @@ h7{
 .page-4 img{
     height: 266px;
     width: 500px;
+}
+
+@media only screen and (max-width: 900px){
+    .indexAllQuizzesList{
+        justify-content: center;
+    }
+    .OpenedQuizzQuestionOption img{
+        height: 100px;
+    }
 }
