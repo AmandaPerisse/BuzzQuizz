@@ -184,17 +184,17 @@ function makeQuestions() {
     const validateQtdPerg = !isNaN(qtdPerg) && parseInt(qtdPerg) >= 3;
     const validateQtdNiveis = !isNaN(qtdNiveis) && parseInt(qtdNiveis) >= 2;
 
-    // if (validateTitle && validateUrl && validateQtdPerg && validateQtdNiveis) {
-    const passPage = document.querySelector('.page-1');
-    passPage.classList.add('escondido');
+    if (validateTitle && validateUrl && validateQtdPerg && validateQtdNiveis) {
+        const passPage = document.querySelector('.page-1');
+        passPage.classList.add('escondido');
 
-    const newPage = document.querySelector('.page-2');
-    newPage.classList.remove('escondido');
-    // } else {
-    //     alert('Ops, algo deu errado! Preencha os dados novamente ;)');
-    // }
+        const newPage = document.querySelector('.page-2');
+        newPage.classList.remove('escondido');
+    } else {
+        alert('Ops, algo deu errado! Preencha os dados novamente ;)');
+    }
 
-    payload = { title: title, url: url }
+    payload = { ...payload, title: title, image: url }
 
     let questions = document.querySelector('.page-2 .info-quizz')
     for (let i = 0; i < parseInt(qtdPerg); i++) {
@@ -254,15 +254,15 @@ function makeLevels(passPage2) {
         const validateAnswers = correctAnswers != undefined && incorrectAnswers1 != undefined || incorrectAnswers2 != undefined || incorrectAnswers3 != undefined;
         const validateUrl = isValidUrl(urlAnswers) && isValidUrl(urlAnswers1) && isValidUrl(urlAnswers2) && isValidUrl(urlAnswers3);
 
-        // if (!validateTitle || !validateColor || !validateAnswers || !validateUrl) {
-        //     alert('Ops, algo deu errado! Preencha os dados novamente ;)');
-        //     validate = false;
-        //     break;
-        // }
+        if (!validateTitle || !validateColor || !validateAnswers || !validateUrl) {
+            alert('Ops, algo deu errado! Preencha os dados novamente ;)');
+            validate = false;
+            break;
+        }
 
         let objQuestion = {
             title: title,
-            color: colorQuest,
+            color: "#" + colorQuest,
             answers: [{
                 text: correctAnswers,
                 image: urlAnswers,
@@ -298,9 +298,7 @@ function makeLevels(passPage2) {
 
     if (validate) {
         payload = { ...payload, questions: listQuestions };
-        console.log("🚀 ~ file: script.js ~ line 290 ~ makeLevels ~ payload", payload)
 
-        console.log('funcionando');
         const passPage = document.querySelector('.page-2');
         passPage.classList.add('escondido');
 
@@ -309,10 +307,12 @@ function makeLevels(passPage2) {
     }
 }
 
-function finishCreateQuizz(passPage3) {
+async function finishCreateQuizz(passPage3) {
     let validate = true;
     let listPercent = [];
     let listLevels = [];
+    let currentQuizzId;
+    let currentQuizzImage;
 
     for (let i = 0; i < parseInt(qtdNiveis); i++) {
         const title = document.querySelector(`input[name=title-level${i + 1}]`).value;
@@ -321,13 +321,9 @@ function finishCreateQuizz(passPage3) {
         const descrition = document.querySelector(`input[name=descrition-level${i + 1}]`).value;
 
         const validateTitle = title.length >= 10;
-        console.log("🚀 ~ file: script.js ~ line 322 ~ finishCreateQuizz ~ validateTitle", validateTitle)
         const validatePercent = parseInt(percent) >= 0 && parseInt(percent) <= 100;
-        console.log("🚀 ~ file: script.js ~ line 324 ~ finishCreateQuizz ~ validatePercent", validatePercent)
         const validateUrl = isValidUrl(url);
-        console.log("🚀 ~ file: script.js ~ line 326 ~ finishCreateQuizz ~ validateUrl", validateUrl)
         const validateDescrition = descrition.length >= 30;
-        console.log("🚀 ~ file: script.js ~ line 328 ~ finishCreateQuizz ~ validateDescrition", validateDescrition)
 
         if (!validateTitle || !validatePercent || !validateUrl || !validateDescrition) {
             alert('Ops, algo deu errado! Preencha os dados novamente ;)');
@@ -341,33 +337,48 @@ function finishCreateQuizz(passPage3) {
             title: title,
             image: url,
             text: descrition,
-            // minValue: percent,
+            minValue: parseInt(percent),
         })
     }
 
-    // if (!listPercent.includes("0")) {
-    //     alert("Pelo menos uma porcentagem de acerto deve ser 0%")
-    //     validate = false;
-    // }
+    if (!listPercent.includes("0")) {
+        alert("Pelo menos uma porcentagem de acerto deve ser 0%")
+        validate = false;
+    }
 
     if (validate) {
         payload = { ...payload, levels: listLevels };
-        console.log('funcionando');
         const passPage = document.querySelector('.page-3');
         passPage.classList.add('escondido');
 
         const newPage = document.querySelector('.page-4');
         newPage.classList.remove('escondido');
     }
+
+    await axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", payload)
+        .then(
+            function getId(response) {
+                currentQuizzId = response.data.id;
+                currentQuizzImage = response.data.image;
+            }
+        )
+
+    let image = document.querySelector(".page-4");
+    image.innerHTML += `
+        <h6>Seu quizz está pronto!</h6>
+        <img src=${currentQuizzImage} alt="img-1" onclick="accessQuizz(${currentQuizzId})">
+        <div class="btnEnd">
+            <button class="btn" onclick="accessQuizz(${currentQuizzId})">Acessar Quizz</button>
+            <button class="btn-back" onclick="backHome(this)">Voltar para home</button>
+        </div>
+        `
 }
 
-function accessQuizz(AccessQuizz) {
+function accessQuizz(id) {
     const passPage = document.querySelector('.page-4');
     passPage.classList.add('escondido');
 
-    // colocar a classe da página do quizz criado
-    const newPage = document.querySelector('');
-    newPage.classList.remove('escondido');
+    searchQuizz(id);
 
 }
 
